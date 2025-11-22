@@ -1,0 +1,4 @@
+beautifulsoup4==4.14.2
+requests==2.32.5
+selenium==4.38.0
+selenium-stealth==1.0.6
