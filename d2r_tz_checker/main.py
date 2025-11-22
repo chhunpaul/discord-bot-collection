@@ -73,5 +73,4 @@ if __name__ == "__main__":
 
         # Tag the user at the beginning
         body = f"<@{DISCORD_USER_ID}> {joined}"
-    print(body)
-    # send_discord_message(body)
+    send_discord_message(body)
