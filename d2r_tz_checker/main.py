@@ -43,7 +43,7 @@ def get_terror_zone_info():
         # tbody -> first tr
         tbody = table.find_element(By.TAG_NAME, "tbody")
         first_tr = tbody.find_element(By.CSS_SELECTOR, "tr")
-        cells = [td.text.strip().strip('Coming soon') for td in first_tr.find_elements(By.TAG_NAME, "td")]
+        cells = [td.text.replace("Coming soon", "").strip() for td in first_tr.find_elements(By.TAG_NAME, "td")]
         return cells
     finally:
         driver.quit()
