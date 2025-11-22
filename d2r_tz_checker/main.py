@@ -13,6 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 URL = os.environ.get("TZ_URL", "https://www.d2tz.info/online")
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 DISCORD_USER_ID = os.environ.get("DISCORD_USER_ID")
+TIMEZONE = os.environ.get("TIMEZONE", "America/Los_Angeles")
 
 
 def get_terror_zone_info():
@@ -22,9 +23,11 @@ def get_terror_zone_info():
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-dev-shm-usage")
-
     driver = webdriver.Chrome(options=options)
-
+    driver.execute_cdp_cmd(
+        "Emulation.setTimezoneOverride",
+        {"timezoneId": TIMEZONE}
+    )
     try:
         driver.get(URL)
 
@@ -70,4 +73,5 @@ if __name__ == "__main__":
 
         # Tag the user at the beginning
         body = f"<@{DISCORD_USER_ID}> {joined}"
-    send_discord_message(body)
+    print(body)
+    # send_discord_message(body)
