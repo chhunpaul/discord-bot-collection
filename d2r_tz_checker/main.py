@@ -29,22 +29,21 @@ def get_terror_zone_info():
         {"timezoneId": TIMEZONE}
     )
     try:
+        print(f"Loading: {URL}")
         driver.get(URL)
-
         wait = WebDriverWait(driver, 20)
-
         # Find the table inside .mb-3.tz-table-container
+        print("Looking for table....")
         table = wait.until(
             EC.presence_of_element_located(
                 (By.CSS_SELECTOR, ".mb-3.tz-table-container table")
             )
         )
-
+        print("Found table....")
         # tbody -> first tr
         tbody = table.find_element(By.TAG_NAME, "tbody")
         first_tr = tbody.find_element(By.CSS_SELECTOR, "tr")
         cells = [td.text.strip().strip('Coming soon') for td in first_tr.find_elements(By.TAG_NAME, "td")]
-
         return cells
     finally:
         driver.quit()
@@ -73,4 +72,5 @@ if __name__ == "__main__":
 
         # Tag the user at the beginning
         body = f"<@{DISCORD_USER_ID}> {joined}"
+    print(body)
     send_discord_message(body)
